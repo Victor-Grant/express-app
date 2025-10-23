@@ -6,14 +6,18 @@ const getUsers = (req, res) => {
 
 const createUser = (req, res) => {
   console.log("creating user");
+  console.log(req.body);
 };
 
 const updateUser = (req, res) => {
   console.log("updating user");
+  console.log(req.params.id);
+  console.log(req.body);
 };
 
 const deleteUser = (req, res) => {
   console.log("deleting user");
+  console.log(req.params.id);
 };
 
 router.get("/", getUsers);
