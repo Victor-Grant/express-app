@@ -20,10 +20,11 @@ const createMovie = async (req, res) => {
   }
 };
 
-const updateMovie = (req, res) => {
-  console.log("updating user");
+const updateMovie = async (req, res) => {
+  const result = await Movie.updateOne({ _id: req.params.id }, req.body);
   console.log(req.params.id);
-  console.log(req.body);
+  console.log(result);
+  res.json(result);
 };
 
 const deleteMovie = (req, res) => {
