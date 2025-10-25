@@ -7,7 +7,7 @@ connectDB();
 app.use(express.json());
 require("dotenv").config();
 
-app.use("/api/users", apiRoutes);
+app.use("/api/movies", apiRoutes);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

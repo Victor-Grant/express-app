@@ -1,28 +1,39 @@
 const router = require("express").Router();
+const Movie = require("../database/Models");
 
-const getUsers = (req, res) => {
-  console.log("Fetching users");
+const getMovies = async (req, res) => {
+  try {
+    const movies = await Movie.find();
+    res.json(movies);
+  } catch (error) {
+    console.error("Error fetching movies: ", error);
+  }
 };
 
-const createUser = (req, res) => {
-  console.log("creating user");
-  console.log(req.body);
+const createMovie = async (req, res) => {
+  try {
+    const result = await Movie.insertOne(req.body);
+    console.log("Movie created: ", result);
+    res.json(result);
+  } catch (error) {
+    console.error("Error creating movie: ", error);
+  }
 };
 
-const updateUser = (req, res) => {
+const updateMovie = (req, res) => {
   console.log("updating user");
   console.log(req.params.id);
   console.log(req.body);
 };
 
-const deleteUser = (req, res) => {
+const deleteMovie = (req, res) => {
   console.log("deleting user");
   console.log(req.params.id);
 };
 
-router.get("/", getUsers);
-router.post("/", createUser);
-router.put("/:id", updateUser);
-router.delete("/:id", deleteUser);
+router.get("/", getMovies);
+router.post("/", createMovie);
+router.put("/:id", updateMovie);
+router.delete("/:id", deleteMovie);
 
 module.exports = router;
