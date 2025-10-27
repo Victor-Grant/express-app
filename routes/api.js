@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Movie = require("../database/Models");
+const { ObjectId } = require("mongoose");
 
 const getMovies = async (req, res) => {
   try {
@@ -21,15 +22,39 @@ const createMovie = async (req, res) => {
 };
 
 const updateMovie = async (req, res) => {
-  const result = await Movie.updateOne({ _id: req.params.id }, req.body);
+  // if (!ObjectId.isValid("68fefb1769addd54348a1da7")) {
+  //   throw new Error("The Id you passed is not a valid object Id type");
+  // } else {
+  //   console.log("perfect object Id");
+  // }
+  console.log(req.params.id);
+  const result = await Movie.findByIdAndUpdate(req.params.id, req.body);
   console.log(req.params.id);
   console.log(result);
   res.json(result);
 };
 
-const deleteMovie = (req, res) => {
+/* 
+{
+  "_id": {
+    "$oid": "68fefb1769addd54348a1da7"
+  },
+  "title": "Duplicate",
+  "director": "Victor Grant",
+  "releaseYear": 2025,
+  "ratings": 7.2,
+  "genre": [
+    "Action, Thriller"
+  ],
+  "__v": 0
+}
+*/
+
+const deleteMovie = async (req, res) => {
+  const result = await Movie.findByIdAndDelete(req.params.id);
   console.log("deleting user");
   console.log(req.params.id);
+  res.json(result);
 };
 
 router.get("/", getMovies);
